@@ -52,13 +52,15 @@ Detailed machine-readable results: `lab_configuration_results.json`
 
 | Requirement | Status | Evidence |
 |-------------|--------|----------|
-| ITSI application installed | **Complete** | `itsi` v4.21.0 |
-| Splunk Add-on for Unix/Linux | **Complete** | `Splunk_TA_nix` installed |
-| ITSI Content Pack for Monitoring and Alerting | **Complete** | `DA-ITSI-CP-monitoring-alerting` v2.3.0 |
-| ITSI Content Pack for Unix/Nix | **Complete** | `DA-ITSI-CP-nix` v1.3.0 |
+| IT Service Intelligence | **Complete** | `itsi` v4.21.0 |
+| Splunk Add-on for Unix and Linux | **Complete** | `Splunk_TA_nix` installed |
+| ITSI Splunk App for Content Packs | **Complete** | `DA-ITSI-ContentLibrary` |
+| Content Pack for ITSI Monitoring and Alerting (Content Library) | **Complete** | `DA-ITSI-CP-monitoring-alerting` v2.3.0 |
+| Monitoring Unix and Linux (Content Library) | **Complete** | `DA-ITSI-CP-nix` v1.3.0 |
+| ITSI Module for Operating Systems | **Complete** | `DA-ITSI-OS` — provides **OS KPIs - *nix (SAI)** template |
 | Cisco content packs present (no TA) | **Complete** | `DA-ITSI-CP-enterprise-networking`, `DA-ITSI-CP-thousandeyes` (import objects disabled — expected) |
 
-**Outcome:** Met. Environment matches lab prerequisites.
+**Outcome:** Met. Environment matches lab prerequisites. See [`LAB_GUIDE.md`](LAB_GUIDE.md) **Prerequisites (Exercise 1)** for UI vs folder naming.
 
 ---
 

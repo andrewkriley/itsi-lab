@@ -1,6 +1,6 @@
 # ITSI POC SE Enablement Lab — Revised Lab Guide
 
-**Version:** 2.1 (July 2026)  
+**Version:** 2.2 (July 2026)  
 **Scenario:** Ruritania Application monitoring  
 **ITSI version:** 4.21.x | **Splunk:** 9.4.x  
 
@@ -35,11 +35,107 @@ Log in and confirm you can open **IT Service Intelligence** from the Apps menu.
 
 ### Prerequisites (Exercise 1)
 
-- ITSI app installed
-- Splunk Add-on for Unix/Linux (`Splunk_TA_nix`)
-- ITSI Content Pack for Unix/Nix (`DA-ITSI-CP-nix`)
-- ITSI Content Pack for Monitoring and Alerting (`DA-ITSI-CP-monitoring-alerting`)
-- Datagen running — verify with Search: `index=rur_apps | head 10`
+Splunk Show lab instances usually ship with most components pre-installed. Use this section to verify them, or to install missing pieces on other environments.
+
+> **Naming note:** Splunk shows **different names** in different places — the **Apps** menu label, the **Manage Apps** page, the **ITSI Content Library** tile, and the **folder name** on disk (`$SPLUNK_HOME/etc/apps/…`) often do not match. Use the table below and look for the **UI label** first.
+
+#### Layer 1 — Core Splunk apps (verify in **Apps** → **Manage Apps**)
+
+| What to look for (UI label) | App folder name | Required for lab |
+|-----------------------------|-----------------|------------------|
+| **IT Service Intelligence** | `itsi` | Yes — main ITSI app |
+| **ITOA Backend** | `SA-ITOA` | Yes — installed with ITSI (supporting backend) |
+| **Splunk Add-on for Unix and Linux** | `Splunk_TA_nix` | Yes — prerequisite for nix content pack |
+| **ITSI Splunk App for Content Packs** | `DA-ITSI-ContentLibrary` | Yes — enables the Content Library UI |
+| **ITSI-EDU-rur** | `ITSI-EDU-rur` | Yes on Splunk Show — Ruritania datagen |
+| **ITSI-EDU-background** | `ITSI-EDU-background` | Optional — demo background assets |
+
+![Screenshot placeholder: Manage Apps showing IT Service Intelligence and Splunk Add-on for Unix and Linux](docs/images/ex1-01-manage-apps-core.png)
+
+*Screenshot to be added: **Manage Apps** list filtered to ITSI and Unix/Linux add-on.*
+
+#### Layer 2 — ITSI modules (bundled; verify in **Manage Apps**)
+
+These ship with ITSI and provide **SAI service templates** (including `OS KPIs - *nix (SAI)` used in Exercise 4). They are **not** the same as content packs.
+
+| What to look for (UI label) | App folder name | Lab relevance |
+|-----------------------------|-----------------|---------------|
+| **ITSI Module for Operating Systems** | `DA-ITSI-OS` | Provides **OS KPIs - *nix (SAI)** service template |
+| **ITSI Module for Application Servers** | `DA-ITSI-APPSERVER` | Optional |
+| **ITSI Module for Database Systems** | `DA-ITSI-DATABASE` | Optional |
+
+![Screenshot placeholder: Manage Apps showing ITSI Module for Operating Systems](docs/images/ex1-02-manage-apps-itsi-modules.png)
+
+*Screenshot to be added: ITSI Module apps in **Manage Apps**.*
+
+#### Layer 3 — Content packs (install via **ITSI Content Library**, not Manage Apps alone)
+
+Content packs are **not** fully installed when their app folder appears in Manage Apps. Install them from:
+
+**ITSI** → **Configuration** → **Data Integrations** → **Content Library**
+
+| Content Library tile name (exact) | App folder (after install) | Required for lab |
+|-----------------------------------|----------------------------|------------------|
+| **Monitoring Unix and Linux** | `DA-ITSI-CP-nix` | Yes — entity types, `Unix and Linux server health` template |
+| **Content Pack for ITSI Monitoring and Alerting** | `DA-ITSI-CP-monitoring-alerting` | Yes — correlation searches & episode policies (Exercise 6) |
+
+![Screenshot placeholder: ITSI Configuration → Data Integrations → Content Library](docs/images/ex1-03-content-library-nav.png)
+
+*Screenshot to be added: navigation to **Content Library**.*
+
+![Screenshot placeholder: Content Library showing Monitoring Unix and Linux tile](docs/images/ex1-04-content-library-nix-tile.png)
+
+*Screenshot to be added: **Monitoring Unix and Linux** content pack tile.*
+
+![Screenshot placeholder: Content Pack install confirmation for Monitoring Unix and Linux](docs/images/ex1-05-content-pack-nix-install.png)
+
+*Screenshot to be added: content pack install / proceed screen.*
+
+![Screenshot placeholder: Content Library showing ITSI Monitoring and Alerting tile](docs/images/ex1-06-content-library-cpma-tile.png)
+
+*Screenshot to be added: **Content Pack for ITSI Monitoring and Alerting** tile.*
+
+> **Auto-installed (no Content Library tile):** **Content Pack for Unix Dashboards and Reports** (`DA-ITSI-CP-unix-dashboards`) installs automatically with the Splunk App for Content Packs. Verify it exists in **Manage Apps** — you do not need to install it separately from the Content Library.
+
+#### Layer 4 — Splunk Add-on for Unix and Linux (if not pre-installed)
+
+On Splunk Show the add-on is usually present. On other environments install from [Splunkbase](https://splunkbase.splunk.com/app/833/) via **Apps** → **Manage Apps** → **Install app from file** or Splunkbase download.
+
+![Screenshot placeholder: Installing Splunk Add-on for Unix and Linux from Splunkbase or upload](docs/images/ex1-07-install-ta-nix.png)
+
+*Screenshot to be added: add-on installation (Splunkbase or **Install app from file**).*
+
+![Screenshot placeholder: Manage Apps confirming Splunk Add-on for Unix and Linux is enabled](docs/images/ex1-08-ta-nix-enabled.png)
+
+*Screenshot to be added: **Splunk Add-on for Unix and Linux** enabled in **Manage Apps**.*
+
+#### Layer 5 — Datagen (verify in Search)
+
+```spl
+| tstats count where index=rur_apps by sourcetype
+```
+
+Or spot-check raw events:
+
+```spl
+index=rur_apps | head 10
+```
+
+**Pass:** Events in `rur_apps` with sourcetypes `rur_api`, `rur_login`, `rur_db`, and/or `rur_submission`.
+
+![Screenshot placeholder: Search showing rur_apps sourcetype counts](docs/images/ex1-09-rur-apps-search.png)
+
+*Screenshot to be added: Search results confirming Ruritania datagen.*
+
+#### Quick reference — common naming mistakes
+
+| Incorrect (old guide / shorthand) | Correct name to use in UI |
+|-----------------------------------|---------------------------|
+| ITSI Content Pack for Unix/Nix | **Monitoring Unix and Linux** (Content Library tile) |
+| `DA-ITSI-CP-nix` (in UI) | Folder name only — look for **Monitoring Unix and Linux** in Content Library |
+| Splunk Add-on for Unix/Linux | **Splunk Add-on for Unix and Linux** |
+| OS KPIs from nix content pack | **OS KPIs - *nix (SAI)** — from **ITSI Module for Operating Systems**, not the content pack |
+| Unix and Linux server health | Separate template from **Monitoring Unix and Linux** content pack |
 
 ---
 
@@ -65,16 +161,62 @@ Keep this table open while you work. **Do not** use conflicting values from the 
 
 **Goal:** Confirm the lab environment is ready.
 
-1. Open **Apps** and verify the prerequisite apps listed above are installed.
-2. Open **Search & Reporting** and run:
+### Step 1 — Verify core apps
+
+1. Open **Apps** → **Manage Apps**
+2. Confirm these are **Installed** and **Enabled**:
+
+| UI label | Folder |
+|----------|--------|
+| IT Service Intelligence | `itsi` |
+| Splunk Add-on for Unix and Linux | `Splunk_TA_nix` |
+| ITSI Splunk App for Content Packs | `DA-ITSI-ContentLibrary` |
+| ITSI-EDU-rur | `ITSI-EDU-rur` |
+
+See screenshot placeholders in **Prerequisites (Exercise 1)** above.
+
+### Step 2 — Verify content packs in Content Library
+
+1. Open **IT Service Intelligence**
+2. Go to **Configuration** → **Data Integrations** → **Content Library**
+3. Confirm these content packs show **Installed**:
+
+| Content Library name | Delivers (among other things) |
+|----------------------|-------------------------------|
+| **Monitoring Unix and Linux** | Entity types `*nix`, `Unix/Linux Add-on`; service template **Unix and Linux server health** |
+| **Content Pack for ITSI Monitoring and Alerting** | Correlation searches such as `Service Monitoring - KPI Degraded`; aggregation policies |
+
+If a required pack is not installed, select its tile → **Proceed to install**.
+
+### Step 3 — Verify datagen
+
+Open **Search & Reporting** and run:
 
 ```spl
 | tstats count where index=rur_apps by sourcetype
 ```
 
-3. Open **ITSI** → **Configuration** → **Entity Types** and confirm *nix entity types exist from the content pack.
+**Pass:** Counts for `rur_api`, `rur_login`, `rur_db`, and/or `rur_submission`.
 
-**Pass:** `rur_apps` returns counts for `rur_api`, `rur_login`, `rur_db`, and/or `rur_submission`.
+### Step 4 — Verify entity types from content pack
+
+**ITSI** → **Configuration** → **Entity Types**
+
+Confirm these exist (created by **Monitoring Unix and Linux** and/or the Unix add-on):
+
+| Entity type title | Source |
+|-------------------|--------|
+| `*nix` | Content pack / infrastructure monitoring |
+| `Unix/Linux Add-on` | Splunk Add-on for Unix and Linux |
+
+You will create **Ruritania Application Server** yourself in Exercise 3.
+
+**Pass criteria for Exercise 1:**
+
+- [ ] Core apps enabled (Step 1)
+- [ ] Required content packs installed via Content Library (Step 2)
+- [ ] `rur_apps` receiving events (Step 3)
+- [ ] `*nix` entity types present (Step 4)
 
 ---
 
@@ -193,6 +335,8 @@ Save each service. Confirm the expected entity count (3 db, 4 login, 3 app, 4 ap
 
 On each tier service → **Settings** → **Service Templates** → add **OS KPIs - *nix (SAI)**.
 
+> **Template source:** **OS KPIs - *nix (SAI)** comes from the **ITSI Module for Operating Systems** (`DA-ITSI-OS`), not from the **Monitoring Unix and Linux** content pack. The content pack adds a separate template called **Unix and Linux server health** — do not confuse the two.
+>
 > **Important:** Ruritania hosts in Splunk Show do not receive nix `mstats` data. OS KPIs will stay grey. You will use **error KPIs** on the glass table in Exercises 5 and 7 instead.
 
 ### Step 4 — Create custom latency KPIs
@@ -557,6 +701,8 @@ All searches use `index=rur_apps` and end with `by host` for entity breakdown.
 | 8 | No threshold or backfill steps | Exercise 5 — required for populated tiles |
 | 9 | Glass table JSON orphan error | Delete tiles in visual editor only |
 | 10 | App KPI missing sourcetype | `sourcetype=rur_submission` for app tier |
+| 11 | Wrong content pack / module names | See **Prerequisites (Exercise 1)** naming table |
+| 12 | Content packs listed as Manage Apps only | Install from **Configuration → Data Integrations → Content Library** |
 
 ---
 
@@ -566,4 +712,5 @@ All searches use `index=rur_apps` and end with `by host` for entity breakdown.
 |---------|------|-------|
 | 1.0 | Oct 2025 | Original SE Enablement Lab Guide |
 | 2.0 | Jul 2026 | Validated against Splunk Show ITSI 4.21 |
-| 2.1 | Jul 2026 | GUI-only revision; scripts removed from learner path |
+| 2.1 | Jul 2026 | GUI-only revision |
+| 2.2 | Jul 2026 | Correct ITSI/content pack naming; screenshot placeholders for Exercise 1 |
