@@ -1,0 +1,212 @@
+{
+  "splunk": {
+    "version": "9.4.3",
+    "serverName": "show-itsi-based-demo-i-0de3b31445a802592",
+    "health": "green",
+    "api_endpoint": "https://riles-itsi-i-0de3b31445a802592.splunk.show:8089"
+  },
+  "apps": {
+    "itsi": "4.21.0",
+    "Splunk_TA_nix": true,
+    "monitoring_alerting_cp": true,
+    "nix_cp": true
+  },
+  "data": {
+    "rur_hosts": {
+      "count": "14",
+      "hosts": [
+        "api-01",
+        "api-02",
+        "api-03",
+        "api-04",
+        "app-01",
+        "app-02",
+        "app-03",
+        "db-01",
+        "db-02",
+        "db-03",
+        "login-01",
+        "login-02",
+        "login-03",
+        "login-04"
+      ]
+    },
+    "rur_sourcetypes": [
+      {
+        "sourcetype": "rur_api",
+        "count": "110742"
+      },
+      {
+        "sourcetype": "rur_db",
+        "count": "27771"
+      },
+      {
+        "sourcetype": "rur_login",
+        "count": "230887"
+      },
+      {
+        "sourcetype": "rur_submission",
+        "count": "23073"
+      }
+    ],
+    "error_events_by_host": [
+      {
+        "host": "app-01",
+        "count": "325"
+      },
+      {
+        "host": "app-02",
+        "count": "305"
+      },
+      {
+        "host": "app-03",
+        "count": "279"
+      }
+    ]
+  },
+  "services": [
+    {
+      "title": "API Server",
+      "enabled": 1,
+      "kpi_count": 13,
+      "kpi_titles": [
+        "ServiceHealthScore",
+        "CPU Active %",
+        "Disk IO Weighted Time",
+        "Disk Queue - Pending Operations",
+        "IO Wait %",
+        "Load Ave - 1 minute",
+        "Load Ave - 15 minute",
+        "Load Ave - 5 minute",
+        "Network Bandwidth MB/s",
+        "Network Errors",
+        "Network Packet Drop %",
+        "Storage Used %",
+        "API Response Time"
+      ],
+      "depends_on": [
+        "Login Server",
+        "App Server"
+      ],
+      "entity_rules": 2
+    },
+    {
+      "title": "Database Server",
+      "enabled": 1,
+      "kpi_count": 13,
+      "kpi_titles": [
+        "ServiceHealthScore",
+        "CPU Active %",
+        "Disk IO Weighted Time",
+        "Disk Queue - Pending Operations",
+        "IO Wait %",
+        "Load Ave - 1 minute",
+        "Load Ave - 15 minute",
+        "Load Ave - 5 minute",
+        "Network Bandwidth MB/s",
+        "Network Errors",
+        "Network Packet Drop %",
+        "Storage Used %",
+        "DB Query Duration"
+      ],
+      "depends_on": [],
+      "entity_rules": 2
+    },
+    {
+      "title": "App Server",
+      "enabled": 1,
+      "kpi_count": 13,
+      "kpi_titles": [
+        "ServiceHealthScore",
+        "CPU Active %",
+        "Disk IO Weighted Time",
+        "Disk Queue - Pending Operations",
+        "IO Wait %",
+        "Load Ave - 1 minute",
+        "Load Ave - 15 minute",
+        "Load Ave - 5 minute",
+        "Network Bandwidth MB/s",
+        "Network Errors",
+        "Network Packet Drop %",
+        "Storage Used %",
+        "App Processing Time"
+      ],
+      "depends_on": [
+        "Database Server"
+      ],
+      "entity_rules": 2
+    },
+    {
+      "title": "Login Server",
+      "enabled": 1,
+      "kpi_count": 13,
+      "kpi_titles": [
+        "ServiceHealthScore",
+        "CPU Active %",
+        "Disk IO Weighted Time",
+        "Disk Queue - Pending Operations",
+        "IO Wait %",
+        "Load Ave - 1 minute",
+        "Load Ave - 15 minute",
+        "Load Ave - 5 minute",
+        "Network Bandwidth MB/s",
+        "Network Errors",
+        "Network Packet Drop %",
+        "Storage Used %",
+        "Login Duration"
+      ],
+      "depends_on": [],
+      "entity_rules": 2
+    },
+    {
+      "title": "Ruritania Application",
+      "enabled": 1,
+      "kpi_count": 1,
+      "kpi_titles": [
+        "ServiceHealthScore"
+      ],
+      "depends_on": [
+        "API Server",
+        "Login Server",
+        "App Server",
+        "Database Server"
+      ],
+      "entity_rules": 0
+    }
+  ],
+  "entities": {
+    "total": 62,
+    "nix_entities": 62,
+    "ruritania_entities": 20
+  },
+  "glass_tables": [
+    {
+      "title": "Generic POC Glass Table",
+      "key": "79aa6fff-a076-11f0-b438-0e5379f5040d"
+    }
+  ],
+  "correlation_searches": [
+    {
+      "name": "Service Monitoring - KPI Degraded",
+      "disabled": false
+    },
+    {
+      "name": "Service Monitoring - Sustained KPI Degradation (Recommended)",
+      "disabled": false
+    },
+    {
+      "name": "Ruritania Application Errors",
+      "disabled": false
+    }
+  ],
+  "aggregation_policies": [
+    {
+      "title": "Episodes by ITSI Service",
+      "disabled": 0
+    },
+    {
+      "title": "Episodes by Src",
+      "disabled": 0
+    }
+  ]
+}

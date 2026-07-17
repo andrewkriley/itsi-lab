@@ -1,0 +1,3933 @@
+{
+  "title": "Ruritania App Glass Table",
+  "description": "Ruritania Application POC glass table - Exercise 7",
+  "gt_version": "beta",
+  "acl": {
+    "can_change_perms": true,
+    "can_share_app": true,
+    "can_share_global": true,
+    "can_share_user": true,
+    "can_write": true,
+    "modifiable": true,
+    "owner": "admin",
+    "perms": {
+      "read": [
+        "*"
+      ],
+      "write": [
+        "*"
+      ]
+    },
+    "sharing": "app"
+  },
+  "swap_service_ids": [],
+  "selected_swap_service_id": null,
+  "definition": {
+    "dataSources": {
+      "ds_rur_overall_health": {
+        "type": "ds.search",
+        "name": "Ruritania Application - ServiceHealthScore",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(SHKPI-9a3b7069-bf60-4d76-8af2-c88ab2194f23)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "SHKPI-9a3b7069-bf60-4d76-8af2-c88ab2194f23",
+          "serviceID": "9a3b7069-bf60-4d76-8af2-c88ab2194f23"
+        }
+      },
+      "ds_36b1e68b_health": {
+        "type": "ds.search",
+        "name": "API Server - ServiceHealthScore",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(SHKPI-36b1e68b-0abe-41b5-b3c7-f92f77d5e131)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "SHKPI-36b1e68b-0abe-41b5-b3c7-f92f77d5e131",
+          "serviceID": "36b1e68b-0abe-41b5-b3c7-f92f77d5e131"
+        }
+      },
+      "ds_68e40597": {
+        "type": "ds.search",
+        "name": "API Server - API Response Time",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(68e40597-2a2a-498b-89ce-c813a0e4cff4)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "68e40597-2a2a-498b-89ce-c813a0e4cff4",
+          "serviceID": "36b1e68b-0abe-41b5-b3c7-f92f77d5e131"
+        }
+      },
+      "ds_47d782df": {
+        "type": "ds.search",
+        "name": "API Server - CPU Active %",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(47d782df-e4e3-4622-933f-cd08e530a3a9)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "47d782df-e4e3-4622-933f-cd08e530a3a9",
+          "serviceID": "36b1e68b-0abe-41b5-b3c7-f92f77d5e131"
+        }
+      },
+      "ds_6e577e56": {
+        "type": "ds.search",
+        "name": "API Server - Network Errors",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(6e577e56-4dc5-4d41-97bb-52ec10025950)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "6e577e56-4dc5-4d41-97bb-52ec10025950",
+          "serviceID": "36b1e68b-0abe-41b5-b3c7-f92f77d5e131"
+        }
+      },
+      "ds_api_alerts": {
+        "type": "ds.search",
+        "name": "API Server - Hourly Alerts",
+        "options": {
+          "query": "index=itsi_tracked_alerts entity_name=api* earliest=-1h | stats count as alert_value"
+        }
+      },
+      "ds_api_episodes": {
+        "type": "ds.search",
+        "name": "API Server - Hourly Episodes",
+        "options": {
+          "query": "index=itsi_grouped_alerts entity_name=api* earliest=-1h | stats dc(itsi_group_id) as alert_value"
+        }
+      },
+      "ds_329c4f16_health": {
+        "type": "ds.search",
+        "name": "Login Server - ServiceHealthScore",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(SHKPI-329c4f16-547e-47d6-825c-290b48d0bad3)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "SHKPI-329c4f16-547e-47d6-825c-290b48d0bad3",
+          "serviceID": "329c4f16-547e-47d6-825c-290b48d0bad3"
+        }
+      },
+      "ds_98557b5a": {
+        "type": "ds.search",
+        "name": "Login Server - Login Duration",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(98557b5a-a043-46c0-9702-920b5310a632)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "98557b5a-a043-46c0-9702-920b5310a632",
+          "serviceID": "329c4f16-547e-47d6-825c-290b48d0bad3"
+        }
+      },
+      "ds_9a6ebd0a": {
+        "type": "ds.search",
+        "name": "Login Server - CPU Active %",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(9a6ebd0a-55c3-416a-a191-7af82f814a6d)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "9a6ebd0a-55c3-416a-a191-7af82f814a6d",
+          "serviceID": "329c4f16-547e-47d6-825c-290b48d0bad3"
+        }
+      },
+      "ds_e826e42c": {
+        "type": "ds.search",
+        "name": "Login Server - Storage Used %",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(e826e42c-375c-4e06-b52c-44ef4dca3d33)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "e826e42c-375c-4e06-b52c-44ef4dca3d33",
+          "serviceID": "329c4f16-547e-47d6-825c-290b48d0bad3"
+        }
+      },
+      "ds_login_alerts": {
+        "type": "ds.search",
+        "name": "Login Server - Hourly Alerts",
+        "options": {
+          "query": "index=itsi_tracked_alerts entity_name=login* earliest=-1h | stats count as alert_value"
+        }
+      },
+      "ds_login_episodes": {
+        "type": "ds.search",
+        "name": "Login Server - Hourly Episodes",
+        "options": {
+          "query": "index=itsi_grouped_alerts entity_name=login* earliest=-1h | stats dc(itsi_group_id) as alert_value"
+        }
+      },
+      "ds_771742a2_health": {
+        "type": "ds.search",
+        "name": "App Server - ServiceHealthScore",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(SHKPI-771742a2-5369-497a-ac93-d2616301f846)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "SHKPI-771742a2-5369-497a-ac93-d2616301f846",
+          "serviceID": "771742a2-5369-497a-ac93-d2616301f846"
+        }
+      },
+      "ds_abb08e0b": {
+        "type": "ds.search",
+        "name": "App Server - App Processing Time",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(abb08e0b-6431-4ef6-90ef-a643ea0c760a)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "abb08e0b-6431-4ef6-90ef-a643ea0c760a",
+          "serviceID": "771742a2-5369-497a-ac93-d2616301f846"
+        }
+      },
+      "ds_5fe36c77": {
+        "type": "ds.search",
+        "name": "App Server - CPU Active %",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(5fe36c77-8c68-4422-b1d2-e2eb827c674c)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "5fe36c77-8c68-4422-b1d2-e2eb827c674c",
+          "serviceID": "771742a2-5369-497a-ac93-d2616301f846"
+        }
+      },
+      "ds_9edca46b": {
+        "type": "ds.search",
+        "name": "App Server - Storage Used %",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(9edca46b-edeb-4c82-9beb-b9ad97899735)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "9edca46b-edeb-4c82-9beb-b9ad97899735",
+          "serviceID": "771742a2-5369-497a-ac93-d2616301f846"
+        }
+      },
+      "ds_app_alerts": {
+        "type": "ds.search",
+        "name": "App Server - Hourly Alerts",
+        "options": {
+          "query": "index=itsi_tracked_alerts entity_name=app* earliest=-1h | stats count as alert_value"
+        }
+      },
+      "ds_app_episodes": {
+        "type": "ds.search",
+        "name": "App Server - Hourly Episodes",
+        "options": {
+          "query": "index=itsi_grouped_alerts entity_name=app* earliest=-1h | stats dc(itsi_group_id) as alert_value"
+        }
+      },
+      "ds_fff3f9d9_health": {
+        "type": "ds.search",
+        "name": "Database Server - ServiceHealthScore",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(SHKPI-fff3f9d9-cc1d-4a70-b208-d05902cf4dcb)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "SHKPI-fff3f9d9-cc1d-4a70-b208-d05902cf4dcb",
+          "serviceID": "fff3f9d9-cc1d-4a70-b208-d05902cf4dcb"
+        }
+      },
+      "ds_54816fb4": {
+        "type": "ds.search",
+        "name": "Database Server - DB Query Duration",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(54816fb4-3093-4ce4-84ed-51f67a011b59)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "54816fb4-3093-4ce4-84ed-51f67a011b59",
+          "serviceID": "fff3f9d9-cc1d-4a70-b208-d05902cf4dcb"
+        }
+      },
+      "ds_f3349111": {
+        "type": "ds.search",
+        "name": "Database Server - CPU Active %",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(f3349111-81d7-4d68-a820-27e9bd52bf36)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "f3349111-81d7-4d68-a820-27e9bd52bf36",
+          "serviceID": "fff3f9d9-cc1d-4a70-b208-d05902cf4dcb"
+        }
+      },
+      "ds_74f19c41": {
+        "type": "ds.search",
+        "name": "Database Server - Storage Used %",
+        "options": {
+          "query": "`get_full_itsi_summary_kpi(74f19c41-738b-49f7-a1f7-e15cc1f76439)` `service_level_kpi_only` | timechart cont=false latest(alert_value) AS alert_value, latest(alert_color) AS alert_color"
+        },
+        "meta": {
+          "kpiID": "74f19c41-738b-49f7-a1f7-e15cc1f76439",
+          "serviceID": "fff3f9d9-cc1d-4a70-b208-d05902cf4dcb"
+        }
+      },
+      "ds_db_alerts": {
+        "type": "ds.search",
+        "name": "Database Server - Hourly Alerts",
+        "options": {
+          "query": "index=itsi_tracked_alerts entity_name=db* earliest=-1h | stats count as alert_value"
+        }
+      },
+      "ds_db_episodes": {
+        "type": "ds.search",
+        "name": "Database Server - Hourly Episodes",
+        "options": {
+          "query": "index=itsi_grouped_alerts entity_name=db* earliest=-1h | stats dc(itsi_group_id) as alert_value"
+        }
+      }
+    },
+    "defaults": {
+      "dataSources": {
+        "global": {
+          "options": {
+            "queryParameters": {
+              "earliest": "$global_time.earliest$",
+              "latest": "$global_time.latest$"
+            },
+            "refresh": "$global_refresh_rate$",
+            "refreshType": "delay"
+          }
+        }
+      }
+    },
+    "description": "",
+    "inputs": {
+      "input_global_refresh_rate": {
+        "dataSources": {},
+        "options": {
+          "defaultValue": "60s",
+          "items": [
+            {
+              "label": "1 Minute",
+              "value": "60s"
+            },
+            {
+              "label": "5 Minutes",
+              "value": "300s"
+            },
+            {
+              "label": "30 Minutes",
+              "value": "1800s"
+            },
+            {
+              "label": "1 Hour",
+              "value": "3600s"
+            },
+            {
+              "label": "24 Hours",
+              "value": "86400s"
+            }
+          ],
+          "token": "global_refresh_rate"
+        },
+        "title": "Global Refresh Rate",
+        "type": "input.dropdown"
+      },
+      "input_global_trp": {
+        "dataSources": {},
+        "options": {
+          "defaultValue": "-7d@h,now",
+          "token": "global_time"
+        },
+        "title": "Global Time Range",
+        "type": "input.timerange"
+      }
+    },
+    "title": "Ruritania App Glass Table",
+    "visualizations": {
+      "viz_105ZLlWS": {
+        "options": {
+          "color": "#ffffff",
+          "customFontSize": 18,
+          "markdown": "API Server",
+          "fontColor": "#ffffff",
+          "fontSize": "custom"
+        },
+        "type": "splunk.markdown"
+      },
+      "viz_1ZF2UAxR": {
+        "dataSources": {
+          "primary": "ds_36b1e68b_health"
+        },
+        "options": {
+          "backgroundColor": "#53a051",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")"
+        },
+        "type": "splunk.singlevalue",
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?serviceId=36b1e68b-0abe-41b5-b3c7-f92f77d5e131&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive"
+            }
+          }
+        ]
+      },
+      "viz_7UHq3naH": {
+        "options": {
+          "rx": 10,
+          "ry": 10,
+          "fillColor": "#53a051",
+          "strokeWidth": 0
+        },
+        "type": "splunk.rectangle"
+      },
+      "viz_M6oNJ4Ev": {
+        "options": {
+          "rx": 10,
+          "ry": 10,
+          "fillColor": "#E33C16",
+          "strokeWidth": 0
+        },
+        "type": "splunk.rectangle"
+      },
+      "viz_Tjb7pOyk": {
+        "options": {
+          "color": "#959599",
+          "customFontSize": 24,
+          "markdown": "Services",
+          "fontColor": "#ffffff",
+          "fontSize": "custom"
+        },
+        "type": "splunk.markdown"
+      },
+      "viz_gHEWMRMg": {
+        "type": "splunk.image",
+        "options": {
+          "preserveAspectRatio": true,
+          "src": "splunk-enterprise-kvstore://679bad5628c5015d980fbfc7"
+        }
+      },
+      "viz_YEexCVuK": {
+        "options": {
+          "color": "#ffffff",
+          "customFontSize": 18,
+          "markdown": "Login Server",
+          "fontColor": "#ffffff",
+          "fontSize": "custom"
+        },
+        "type": "splunk.markdown"
+      },
+      "viz_7ebkD1n4": {
+        "options": {
+          "rx": 10,
+          "ry": 10,
+          "fillColor": "#53a051",
+          "strokeWidth": 0
+        },
+        "type": "splunk.rectangle"
+      },
+      "viz_wgK2ImFs": {
+        "dataSources": {
+          "primary": "ds_329c4f16_health"
+        },
+        "options": {
+          "backgroundColor": "#53a051",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")"
+        },
+        "type": "splunk.singlevalue",
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?serviceId=329c4f16-547e-47d6-825c-290b48d0bad3&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive"
+            }
+          }
+        ]
+      },
+      "viz_HuN7oMgG": {
+        "options": {
+          "rx": 10,
+          "ry": 10,
+          "fillColor": "#E33C16",
+          "strokeWidth": 0
+        },
+        "type": "splunk.rectangle"
+      },
+      "viz_DhSHgUA5": {
+        "dataSources": {},
+        "options": {
+          "backgroundColor": "#E33C16",
+          "majorColor": "#ffffff",
+          "sparklineDisplay": "below"
+        },
+        "type": "splunk.singlevalue"
+      },
+      "viz_pYt5KZb7": {
+        "options": {
+          "color": "#ffffff",
+          "customFontSize": 18,
+          "markdown": "App Server",
+          "fontColor": "#ffffff",
+          "fontSize": "custom"
+        },
+        "type": "splunk.markdown"
+      },
+      "viz_xWfty3hL": {
+        "options": {
+          "rx": 10,
+          "ry": 10,
+          "fillColor": "#53a051",
+          "strokeWidth": 0
+        },
+        "type": "splunk.rectangle"
+      },
+      "viz_KFb9vlmT": {
+        "dataSources": {
+          "primary": "ds_771742a2_health"
+        },
+        "options": {
+          "backgroundColor": "#53a051",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")"
+        },
+        "type": "splunk.singlevalue",
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?serviceId=771742a2-5369-497a-ac93-d2616301f846&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive"
+            }
+          }
+        ]
+      },
+      "viz_BuvDLzaR": {
+        "options": {
+          "rx": 10,
+          "ry": 10,
+          "fillColor": "#E33C16",
+          "strokeWidth": 0
+        },
+        "type": "splunk.rectangle"
+      },
+      "viz_lgrWTbta": {
+        "dataSources": {},
+        "options": {
+          "backgroundColor": "#E33C16",
+          "majorColor": "#ffffff",
+          "sparklineDisplay": "below"
+        },
+        "type": "splunk.singlevalue"
+      },
+      "viz_rpFTbTKk": {
+        "options": {
+          "color": "#ffffff",
+          "customFontSize": 18,
+          "markdown": "Application Services",
+          "fontColor": "#ffffff",
+          "fontSize": "custom"
+        },
+        "type": "splunk.markdown"
+      },
+      "viz_kyh2zxEG": {
+        "options": {
+          "color": "#959599",
+          "customFontSize": 24,
+          "markdown": "Ruritania Application Health and Alerts",
+          "fontColor": "#ffffff",
+          "fontSize": "custom"
+        },
+        "type": "splunk.markdown"
+      },
+      "viz_l55d80Qm": {
+        "options": {
+          "rx": 10,
+          "ry": 10,
+          "fillColor": "#53a051",
+          "strokeWidth": 0
+        },
+        "type": "splunk.rectangle"
+      },
+      "viz_ZNZQ1FfT": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "App 1",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.homeViewObject",
+            "options": {
+              "url": "/en-US/app/itsi/service_analyzer?service=36b1e68b-0abe-41b5-b3c7-f92f77d5e131&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_home_view"
+            }
+          }
+        ]
+      },
+      "viz_wnAwtjCZ": {
+        "options": {
+          "color": "#ffffff",
+          "customFontSize": 24,
+          "markdown": "**Ruritania Application Health**",
+          "fontColor": "#ffffff",
+          "fontSize": "custom"
+        },
+        "type": "splunk.markdown"
+      },
+      "viz_luNLY3iF": {
+        "type": "splunk.image",
+        "options": {
+          "preserveAspectRatio": true,
+          "src": "splunk-enterprise-kvstore://679bb51028c5015d980fbfc8"
+        }
+      },
+      "viz_aFa2Uc8V": {
+        "type": "splunk.image",
+        "options": {
+          "preserveAspectRatio": true,
+          "src": "splunk-enterprise-kvstore://679bb5f328c5015d980fbfc9"
+        }
+      },
+      "viz_j3asRtV9": {
+        "options": {
+          "color": "#ffffff",
+          "customFontSize": 18,
+          "markdown": "Alerts",
+          "fontColor": "#ffffff",
+          "fontSize": "custom"
+        },
+        "type": "splunk.markdown"
+      },
+      "viz_IPeiKhFx": {
+        "options": {
+          "rx": 10,
+          "ry": 10,
+          "fillColor": "#53a051",
+          "strokeWidth": 0
+        },
+        "type": "splunk.rectangle"
+      },
+      "viz_mcdOprW1": {
+        "options": {
+          "rx": 10,
+          "ry": 10,
+          "fillColor": "#53a051",
+          "strokeWidth": 0
+        },
+        "type": "splunk.rectangle"
+      },
+      "viz_tIFljW1p": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "App 2",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.homeViewObject",
+            "options": {
+              "url": "/en-US/app/itsi/service_analyzer?service=329c4f16-547e-47d6-825c-290b48d0bad3&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_home_view"
+            }
+          }
+        ]
+      },
+      "viz_2dZHA0Tf": {
+        "dataSources": {
+          "primary": "ds_68e40597"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "ms",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Duration",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?serviceId=36b1e68b-0abe-41b5-b3c7-f92f77d5e131&kpiId=68e40597-2a2a-498b-89ce-c813a0e4cff4&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive"
+            }
+          }
+        ]
+      },
+      "viz_rG6mfGeU": {
+        "dataSources": {
+          "primary": "ds_54816fb4"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "ms",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Duration",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?serviceId=fff3f9d9-cc1d-4a70-b208-d05902cf4dcb&kpiId=54816fb4-3093-4ce4-84ed-51f67a011b59&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive"
+            }
+          }
+        ]
+      },
+      "viz_SQOQmceS": {
+        "dataSources": {
+          "primary": "ds_98557b5a"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "ms",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Duration",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?serviceId=329c4f16-547e-47d6-825c-290b48d0bad3&kpiId=98557b5a-a043-46c0-9702-920b5310a632&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive"
+            }
+          }
+        ]
+      },
+      "viz_BLy7fzmI": {
+        "dataSources": {
+          "primary": "ds_abb08e0b"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "ms",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Duration",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?serviceId=771742a2-5369-497a-ac93-d2616301f846&kpiId=abb08e0b-6431-4ef6-90ef-a643ea0c760a&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive"
+            }
+          }
+        ]
+      },
+      "viz_svv5CfZ0": {
+        "dataSources": {
+          "primary": "ds_9a6ebd0a"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "%",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Availability",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?serviceId=329c4f16-547e-47d6-825c-290b48d0bad3&kpiId=9a6ebd0a-55c3-416a-a191-7af82f814a6d&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive"
+            }
+          }
+        ]
+      },
+      "viz_fwl4cxzG": {
+        "dataSources": {
+          "primary": "ds_5fe36c77"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "%",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Availability",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?serviceId=771742a2-5369-497a-ac93-d2616301f846&kpiId=5fe36c77-8c68-4422-b1d2-e2eb827c674c&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive"
+            }
+          }
+        ]
+      },
+      "viz_nAWdwUnQ": {
+        "dataSources": {
+          "primary": "ds_f3349111"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "%",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Availability",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?serviceId=fff3f9d9-cc1d-4a70-b208-d05902cf4dcb&kpiId=f3349111-81d7-4d68-a820-27e9bd52bf36&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive"
+            }
+          }
+        ]
+      },
+      "viz_BCzQQqcS": {
+        "dataSources": {
+          "primary": "ds_6e577e56"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "ms",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Jitter",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?serviceId=36b1e68b-0abe-41b5-b3c7-f92f77d5e131&kpiId=6e577e56-4dc5-4d41-97bb-52ec10025950&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive"
+            }
+          }
+        ]
+      },
+      "viz_0Ygj0pAK": {
+        "dataSources": {
+          "primary": "ds_9edca46b"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "ms",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Jitter",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?serviceId=771742a2-5369-497a-ac93-d2616301f846&kpiId=9edca46b-edeb-4c82-9beb-b9ad97899735&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive"
+            }
+          }
+        ]
+      },
+      "viz_FKn03peO": {
+        "dataSources": {
+          "primary": "ds_74f19c41"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "ms",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Jitter",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?serviceId=fff3f9d9-cc1d-4a70-b208-d05902cf4dcb&kpiId=74f19c41-738b-49f7-a1f7-e15cc1f76439&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive"
+            }
+          }
+        ]
+      },
+      "viz_iBtMyqeo": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "ms",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Latency",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?savedDeepDiveID=0d2a4b39-f470-11ef-8913-0eddeee23a3b&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive",
+              "key": "0d2a4b39-f470-11ef-8913-0eddeee23a3b"
+            }
+          }
+        ]
+      },
+      "viz_vFxLGW7d": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "ms",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Latency",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?savedDeepDiveID=5532c173-f860-11ef-b6f9-0eddeee23a3b&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive",
+              "key": "5532c173-f860-11ef-b6f9-0eddeee23a3b"
+            }
+          }
+        ]
+      },
+      "viz_hG5aZS3A": {
+        "dataSources": {
+          "primary": "ds_e826e42c"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "ms",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Jitter",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?serviceId=329c4f16-547e-47d6-825c-290b48d0bad3&kpiId=e826e42c-375c-4e06-b52c-44ef4dca3d33&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive"
+            }
+          }
+        ]
+      },
+      "viz_hxY0zBZW": {
+        "dataSources": {
+          "primary": "ds_47d782df"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "%",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Availability",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?serviceId=36b1e68b-0abe-41b5-b3c7-f92f77d5e131&kpiId=47d782df-e4e3-4622-933f-cd08e530a3a9&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive"
+            }
+          }
+        ]
+      },
+      "viz_kBnmqNqx": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "App 3",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.homeViewObject",
+            "options": {
+              "url": "/en-US/app/itsi/service_analyzer?service=771742a2-5369-497a-ac93-d2616301f846&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_home_view"
+            }
+          }
+        ]
+      },
+      "viz_S3g42J0E": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "%",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Loss",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?savedDeepDiveID=0d2a4b39-f470-11ef-8913-0eddeee23a3b&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive",
+              "key": "0d2a4b39-f470-11ef-8913-0eddeee23a3b"
+            }
+          }
+        ]
+      },
+      "viz_TwcpmT2e": {
+        "dataSources": {
+          "primary": "ds_api_alerts"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+          "majorValue": "> sparklineValues | lastPoint()",
+          "trendValue": "> sparklineValues | delta(-2)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "PRTG Warning Alerts",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.eventManagementObject",
+            "options": {
+              "url": "/en-US/app/itsi/itsi_event_management?earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_event_management"
+            }
+          }
+        ]
+      },
+      "viz_b8MnG2B8": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "%",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Loss",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?savedDeepDiveID=5532c173-f860-11ef-b6f9-0eddeee23a3b&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive",
+              "key": "5532c173-f860-11ef-b6f9-0eddeee23a3b"
+            }
+          }
+        ]
+      },
+      "viz_0PL8trtk": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "ms",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Latency",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?savedDeepDiveID=84154a7c-f860-11ef-95e5-0eddeee23a3b&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive",
+              "key": "84154a7c-f860-11ef-95e5-0eddeee23a3b"
+            }
+          }
+        ]
+      },
+      "viz_Np3ApTT7": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "%",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Loss",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?savedDeepDiveID=84154a7c-f860-11ef-95e5-0eddeee23a3b&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive",
+              "key": "84154a7c-f860-11ef-95e5-0eddeee23a3b"
+            }
+          }
+        ]
+      },
+      "viz_gdlAqBTW": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "ms",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Latency",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?savedDeepDiveID=67c5fa1867ce853ef9064766&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive",
+              "key": "67c5fa1867ce853ef9064766"
+            }
+          }
+        ]
+      },
+      "viz_swRjzNDb": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "%",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Loss",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?savedDeepDiveID=67c5fa1867ce853ef9064766&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive",
+              "key": "67c5fa1867ce853ef9064766"
+            }
+          }
+        ]
+      },
+      "viz_px5M3Dsp": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "App 4",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.homeViewObject",
+            "options": {
+              "url": "/en-US/app/itsi/service_analyzer?service=fff3f9d9-cc1d-4a70-b208-d05902cf4dcb&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_home_view"
+            }
+          }
+        ]
+      },
+      "viz_fvPA5ee1": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName('count')",
+          "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+          "majorValue": "> sparklineValues | lastPoint()",
+          "trendValue": "> sparklineValues | delta(-2)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "PRTG Warning Alerts",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        }
+      },
+      "viz_3lrJ8aDe": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName('count')",
+          "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+          "majorValue": "> sparklineValues | lastPoint()",
+          "trendValue": "> sparklineValues | delta(-2)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "PRTG Alerts",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        }
+      },
+      "viz_mrNlrlbX": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName('count')",
+          "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+          "majorValue": "> sparklineValues | lastPoint()",
+          "trendValue": "> sparklineValues | delta(-2)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "PRTG Alerts",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        }
+      },
+      "viz_Xo55C62E": {
+        "type": "splunk.image",
+        "options": {
+          "preserveAspectRatio": true,
+          "src": "https://media.licdn.com/dms/image/v2/D560BAQGew-s65nswow/company-logo_200_200/company-logo_200_200/0/1719959448098/wcbalberta_logo?e=1748476800&v=beta&t=-VsuRbHxGg1A_gRISBJoFGyYo0beDufGtNMd23Bdk2Q"
+        }
+      },
+      "viz_2vjE75FD": {
+        "options": {
+          "color": "#ffffff",
+          "customFontSize": 18,
+          "markdown": "Database Server",
+          "fontColor": "#ffffff",
+          "fontSize": "custom"
+        },
+        "type": "splunk.markdown"
+      },
+      "viz_jTxsjWMD": {
+        "options": {
+          "rx": 10,
+          "ry": 10,
+          "fillColor": "#53a051",
+          "strokeWidth": 0
+        },
+        "type": "splunk.rectangle"
+      },
+      "viz_mZLUkONs": {
+        "dataSources": {
+          "primary": "ds_fff3f9d9_health"
+        },
+        "options": {
+          "backgroundColor": "#53a051",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")"
+        },
+        "type": "splunk.singlevalue",
+        "eventHandlers": [
+          {
+            "type": "drilldown.deepDiveObject",
+            "options": {
+              "url": "/en-US/app/itsi/deep_dive?serviceId=fff3f9d9-cc1d-4a70-b208-d05902cf4dcb&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_deep_dive"
+            }
+          }
+        ]
+      },
+      "viz_Dbn9RAhf": {
+        "dataSources": {
+          "primary": "ds_api_episodes"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+          "majorValue": "> sparklineValues | lastPoint()",
+          "trendValue": "> sparklineValues | delta(-2)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Disk Alerts",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.eventManagementObject",
+            "options": {
+              "url": "/en-US/app/itsi/itsi_event_management?earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_event_management"
+            }
+          }
+        ]
+      },
+      "viz_AFJLV6d6": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName('count')",
+          "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+          "majorValue": "> sparklineValues | lastPoint()",
+          "trendValue": "> sparklineValues | delta(-2)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "CPU & Memory",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.eventManagementObject",
+            "options": {
+              "url": "/en-US/app/itsi/itsi_event_management?emid=4951b322-f46f-11ef-bcd7-0eddeee23a3b&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_event_management",
+              "key": "4951b322-f46f-11ef-bcd7-0eddeee23a3b"
+            }
+          }
+        ]
+      },
+      "viz_6GLuUSj2": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName('count')",
+          "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+          "majorValue": "> sparklineValues | lastPoint()",
+          "trendValue": "> sparklineValues | delta(-2)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "IIS Pool Alerts",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.eventManagementObject",
+            "options": {
+              "url": "/en-US/app/itsi/itsi_event_management?emid=4951b322-f46f-11ef-bcd7-0eddeee23a3b&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_event_management",
+              "key": "4951b322-f46f-11ef-bcd7-0eddeee23a3b"
+            }
+          }
+        ]
+      },
+      "viz_OgGuf1dV": {
+        "dataSources": {
+          "primary": "ds_login_alerts"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+          "majorValue": "> sparklineValues | lastPoint()",
+          "trendValue": "> sparklineValues | delta(-2)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Disk Alerts",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.eventManagementObject",
+            "options": {
+              "url": "/en-US/app/itsi/itsi_event_management?earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_event_management"
+            }
+          }
+        ]
+      },
+      "viz_mv1BCEWn": {
+        "dataSources": {
+          "primary": "ds_login_episodes"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+          "majorValue": "> sparklineValues | lastPoint()",
+          "trendValue": "> sparklineValues | delta(-2)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "CPU & Memory",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.eventManagementObject",
+            "options": {
+              "url": "/en-US/app/itsi/itsi_event_management?earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_event_management"
+            }
+          }
+        ]
+      },
+      "viz_2gkK2GYL": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName('count')",
+          "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+          "majorValue": "> sparklineValues | lastPoint()",
+          "trendValue": "> sparklineValues | delta(-2)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "IIS Pool Alerts",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.eventManagementObject",
+            "options": {
+              "url": "/en-US/app/itsi/itsi_event_management?emid=4951b322-f46f-11ef-bcd7-0eddeee23a3b&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_event_management",
+              "key": "4951b322-f46f-11ef-bcd7-0eddeee23a3b"
+            }
+          }
+        ]
+      },
+      "viz_oDJ3L9GO": {
+        "dataSources": {
+          "primary": "ds_app_alerts"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+          "majorValue": "> sparklineValues | lastPoint()",
+          "trendValue": "> sparklineValues | delta(-2)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "Disk Alerts",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.eventManagementObject",
+            "options": {
+              "url": "/en-US/app/itsi/itsi_event_management?earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_event_management"
+            }
+          }
+        ]
+      },
+      "viz_mtQ2FNXr": {
+        "dataSources": {
+          "primary": "ds_app_episodes"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+          "majorValue": "> sparklineValues | lastPoint()",
+          "trendValue": "> sparklineValues | delta(-2)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "CPU & Memory",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.eventManagementObject",
+            "options": {
+              "url": "/en-US/app/itsi/itsi_event_management?earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_event_management"
+            }
+          }
+        ]
+      },
+      "viz_clYCHbHQ": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName('count')",
+          "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+          "majorValue": "> sparklineValues | lastPoint()",
+          "trendValue": "> sparklineValues | delta(-2)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "IIS Pool Alerts",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.eventManagementObject",
+            "options": {
+              "url": "/en-US/app/itsi/itsi_event_management?emid=4951b322-f46f-11ef-bcd7-0eddeee23a3b&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_event_management",
+              "key": "4951b322-f46f-11ef-bcd7-0eddeee23a3b"
+            }
+          }
+        ]
+      },
+      "viz_64s3NyJN": {
+        "dataSources": {
+          "primary": "ds_db_alerts"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+          "majorValue": "> sparklineValues | lastPoint()",
+          "trendValue": "> sparklineValues | delta(-2)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "DiskAlerts",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.eventManagementObject",
+            "options": {
+              "url": "/en-US/app/itsi/itsi_event_management?earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_event_management"
+            }
+          }
+        ]
+      },
+      "viz_3MrQoMVf": {
+        "dataSources": {
+          "primary": "ds_db_episodes"
+        },
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+          "majorValue": "> sparklineValues | lastPoint()",
+          "trendValue": "> sparklineValues | delta(-2)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "CPU & Memory",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.eventManagementObject",
+            "options": {
+              "url": "/en-US/app/itsi/itsi_event_management?earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_event_management"
+            }
+          }
+        ]
+      },
+      "viz_YJs9TyqH": {
+        "dataSources": {},
+        "options": {
+          "sparklineDisplay": "off",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true,
+          "unit": "",
+          "sparklineValues": "> primary | seriesByName('count')",
+          "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+          "trendColor": "> trendValue | rangeValue(trendColorEditorConfig)",
+          "majorValue": "> sparklineValues | lastPoint()",
+          "trendValue": "> sparklineValues | delta(-2)"
+        },
+        "type": "splunk.singlevalue",
+        "title": "IIS Pool Alerts",
+        "context": {
+          "majorColorEditorConfig": [
+            {
+              "to": 20,
+              "value": "#D41F1F"
+            },
+            {
+              "from": 20,
+              "to": 40,
+              "value": "#D94E17"
+            },
+            {
+              "from": 40,
+              "to": 60,
+              "value": "#CBA700"
+            },
+            {
+              "from": 60,
+              "to": 80,
+              "value": "#669922"
+            },
+            {
+              "from": 80,
+              "value": "#118832"
+            }
+          ],
+          "trendColorEditorConfig": [
+            {
+              "to": 0,
+              "value": "#9E2520"
+            },
+            {
+              "from": 0,
+              "value": "#1C6B2D"
+            }
+          ]
+        },
+        "eventHandlers": [
+          {
+            "type": "drilldown.eventManagementObject",
+            "options": {
+              "url": "/en-US/app/itsi/itsi_event_management?emid=4951b322-f46f-11ef-bcd7-0eddeee23a3b&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_event_management",
+              "key": "4951b322-f46f-11ef-bcd7-0eddeee23a3b"
+            }
+          }
+        ]
+      },
+      "viz_HsDRo2Fc": {
+        "options": {
+          "rx": 10,
+          "ry": 10,
+          "fillColor": "#53a051",
+          "strokeWidth": 0
+        },
+        "type": "splunk.rectangle"
+      },
+      "viz_zOW7aA05": {
+        "dataSources": {
+          "primary": "ds_rur_overall_health"
+        },
+        "options": {
+          "backgroundColor": "transparent",
+          "majorColor": "> primary | seriesByName(\"alert_color\") | lastPoint()",
+          "sparklineDisplay": "off",
+          "sparklineValues": "> primary | seriesByName(\"alert_value\")",
+          "trendDisplay": "off",
+          "showSparklineTooltip": true
+        },
+        "type": "splunk.singlevalue",
+        "eventHandlers": [
+          {
+            "type": "drilldown.homeViewObject",
+            "options": {
+              "url": "/en-US/app/itsi/service_analyzer?service=9a3b7069-bf60-4d76-8af2-c88ab2194f23&earliest=$global_time.earliest$&latest=$global_time.latest$",
+              "newTab": true,
+              "type": "saved_home_view"
+            }
+          }
+        ],
+        "title": ""
+      }
+    },
+    "layout": {
+      "tabs": {
+        "items": [
+          {
+            "layoutId": "layout_1",
+            "label": "Ruritania Application"
+          }
+        ]
+      },
+      "layoutDefinitions": {
+        "layout_1": {
+          "type": "absolute",
+          "options": {
+            "backgroundColor": "#000000",
+            "height": 1500,
+            "width": 1800
+          },
+          "structure": [
+            {
+              "item": "viz_105ZLlWS",
+              "position": {
+                "h": 50,
+                "w": 160,
+                "x": 440,
+                "y": 90
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_Tjb7pOyk",
+              "position": {
+                "h": 50,
+                "w": 150,
+                "x": 430,
+                "y": 30
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_7UHq3naH",
+              "position": {
+                "h": 90,
+                "w": 140,
+                "x": 440,
+                "y": 125
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_1ZF2UAxR",
+              "position": {
+                "h": 50,
+                "w": 110,
+                "x": 450,
+                "y": 150
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_M6oNJ4Ev",
+              "position": {
+                "h": 60,
+                "w": 90,
+                "x": 440,
+                "y": 225
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_gHEWMRMg",
+              "type": "block",
+              "position": {
+                "x": 40,
+                "y": -20,
+                "w": 260,
+                "h": 300
+              }
+            },
+            {
+              "item": "viz_YEexCVuK",
+              "position": {
+                "x": 650,
+                "y": 90,
+                "w": 170,
+                "h": 50
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_7ebkD1n4",
+              "position": {
+                "x": 650,
+                "y": 125,
+                "w": 140,
+                "h": 90
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_wgK2ImFs",
+              "position": {
+                "x": 660,
+                "y": 150,
+                "w": 110,
+                "h": 50
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_HuN7oMgG",
+              "position": {
+                "x": 650,
+                "y": 225,
+                "w": 90,
+                "h": 60
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_DhSHgUA5",
+              "position": {
+                "x": 660,
+                "y": 245,
+                "w": 70,
+                "h": 40
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_pYt5KZb7",
+              "position": {
+                "x": 860,
+                "y": 90,
+                "w": 210,
+                "h": 50
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_xWfty3hL",
+              "position": {
+                "x": 860,
+                "y": 125,
+                "w": 140,
+                "h": 90
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_KFb9vlmT",
+              "position": {
+                "x": 880,
+                "y": 150,
+                "w": 110,
+                "h": 50
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_BuvDLzaR",
+              "position": {
+                "x": 860,
+                "y": 225,
+                "w": 90,
+                "h": 60
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_lgrWTbta",
+              "position": {
+                "x": 870,
+                "y": 245,
+                "w": 70,
+                "h": 40
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_rpFTbTKk",
+              "position": {
+                "x": 450,
+                "y": 390,
+                "w": 100,
+                "h": 50
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_kyh2zxEG",
+              "position": {
+                "x": 430,
+                "y": 330,
+                "w": 610,
+                "h": 40
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_l55d80Qm",
+              "position": {
+                "x": 430,
+                "y": 430,
+                "w": 140,
+                "h": 350
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_ZNZQ1FfT",
+              "position": {
+                "x": 450,
+                "y": 440,
+                "w": 100,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_wnAwtjCZ",
+              "position": {
+                "x": 70,
+                "y": 250,
+                "w": 240,
+                "h": 50
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_luNLY3iF",
+              "type": "block",
+              "position": {
+                "x": 370,
+                "y": 320,
+                "w": 50,
+                "h": 50
+              }
+            },
+            {
+              "item": "viz_aFa2Uc8V",
+              "type": "block",
+              "position": {
+                "x": 370,
+                "y": 20,
+                "w": 50,
+                "h": 50
+              }
+            },
+            {
+              "item": "viz_j3asRtV9",
+              "position": {
+                "x": 1280,
+                "y": 390,
+                "w": 270,
+                "h": 50
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_IPeiKhFx",
+              "position": {
+                "x": 590,
+                "y": 430,
+                "w": 600,
+                "h": 350
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_mcdOprW1",
+              "position": {
+                "x": 1210,
+                "y": 430,
+                "w": 560,
+                "h": 350
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_tIFljW1p",
+              "position": {
+                "x": 450,
+                "y": 520,
+                "w": 100,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_2dZHA0Tf",
+              "position": {
+                "x": 600,
+                "y": 440,
+                "w": 120,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_rG6mfGeU",
+              "position": {
+                "x": 600,
+                "y": 680,
+                "w": 120,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_SQOQmceS",
+              "position": {
+                "x": 600,
+                "y": 520,
+                "w": 120,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_BLy7fzmI",
+              "position": {
+                "x": 600,
+                "y": 600,
+                "w": 120,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_svv5CfZ0",
+              "position": {
+                "x": 730,
+                "y": 520,
+                "w": 100,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_fwl4cxzG",
+              "position": {
+                "x": 730,
+                "y": 600,
+                "w": 100,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_nAWdwUnQ",
+              "position": {
+                "x": 730,
+                "y": 680,
+                "w": 100,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_BCzQQqcS",
+              "position": {
+                "x": 840,
+                "y": 440,
+                "w": 110,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_0Ygj0pAK",
+              "position": {
+                "x": 840,
+                "y": 600,
+                "w": 110,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_FKn03peO",
+              "position": {
+                "x": 840,
+                "y": 680,
+                "w": 110,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_iBtMyqeo",
+              "position": {
+                "x": 960,
+                "y": 440,
+                "w": 100,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_vFxLGW7d",
+              "position": {
+                "x": 960,
+                "y": 520,
+                "w": 100,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_hG5aZS3A",
+              "position": {
+                "x": 840,
+                "y": 520,
+                "w": 110,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_hxY0zBZW",
+              "position": {
+                "x": 730,
+                "y": 440,
+                "w": 100,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_kBnmqNqx",
+              "position": {
+                "x": 450,
+                "y": 600,
+                "w": 100,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_S3g42J0E",
+              "position": {
+                "x": 1070,
+                "y": 440,
+                "w": 100,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_TwcpmT2e",
+              "position": {
+                "x": 1230,
+                "y": 440,
+                "w": 120,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_b8MnG2B8",
+              "position": {
+                "x": 1070,
+                "y": 520,
+                "w": 100,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_0PL8trtk",
+              "position": {
+                "x": 960,
+                "y": 600,
+                "w": 100,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_Np3ApTT7",
+              "position": {
+                "x": 1070,
+                "y": 600,
+                "w": 100,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_gdlAqBTW",
+              "position": {
+                "x": 960,
+                "y": 680,
+                "w": 100,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_swRjzNDb",
+              "position": {
+                "x": 1070,
+                "y": 680,
+                "w": 100,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_px5M3Dsp",
+              "position": {
+                "x": 450,
+                "y": 680,
+                "w": 100,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_fvPA5ee1",
+              "position": {
+                "x": 1230,
+                "y": 520,
+                "w": 120,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_3lrJ8aDe",
+              "position": {
+                "x": 1230,
+                "y": 600,
+                "w": 120,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_mrNlrlbX",
+              "position": {
+                "x": 1230,
+                "y": 680,
+                "w": 120,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_Xo55C62E",
+              "type": "block",
+              "position": {
+                "x": 20,
+                "y": 40,
+                "w": 300,
+                "h": 190
+              }
+            },
+            {
+              "item": "viz_2vjE75FD",
+              "position": {
+                "x": 1060,
+                "y": 90,
+                "w": 210,
+                "h": 50
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_jTxsjWMD",
+              "position": {
+                "x": 1050,
+                "y": 130,
+                "w": 140,
+                "h": 90
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_mZLUkONs",
+              "position": {
+                "x": 1060,
+                "y": 150,
+                "w": 110,
+                "h": 50
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_Dbn9RAhf",
+              "position": {
+                "x": 1360,
+                "y": 440,
+                "w": 120,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_AFJLV6d6",
+              "position": {
+                "x": 1500,
+                "y": 440,
+                "w": 130,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_6GLuUSj2",
+              "position": {
+                "x": 1640,
+                "y": 440,
+                "w": 120,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_OgGuf1dV",
+              "position": {
+                "x": 1360,
+                "y": 520,
+                "w": 120,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_mv1BCEWn",
+              "position": {
+                "x": 1500,
+                "y": 520,
+                "w": 130,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_2gkK2GYL",
+              "position": {
+                "x": 1640,
+                "y": 520,
+                "w": 120,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_oDJ3L9GO",
+              "position": {
+                "x": 1360,
+                "y": 600,
+                "w": 120,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_mtQ2FNXr",
+              "position": {
+                "x": 1500,
+                "y": 600,
+                "w": 130,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_clYCHbHQ",
+              "position": {
+                "x": 1640,
+                "y": 600,
+                "w": 120,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_64s3NyJN",
+              "position": {
+                "x": 1360,
+                "y": 680,
+                "w": 130,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_3MrQoMVf",
+              "position": {
+                "x": 1500,
+                "y": 680,
+                "w": 130,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_YJs9TyqH",
+              "position": {
+                "x": 1640,
+                "y": 680,
+                "w": 120,
+                "h": 70
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_HsDRo2Fc",
+              "position": {
+                "x": 90,
+                "y": 300,
+                "w": 140,
+                "h": 90
+              },
+              "type": "block"
+            },
+            {
+              "item": "viz_zOW7aA05",
+              "position": {
+                "x": 100,
+                "y": 330,
+                "w": 100,
+                "h": 50
+              },
+              "type": "block"
+            }
+          ]
+        }
+      },
+      "globalInputs": [
+        "input_global_trp",
+        "input_global_refresh_rate"
+      ],
+      "options": {
+        "showTitleAndDescription": true
+      }
+    }
+  },
+  "_owner": "nobody",
+  "mod_source": "unknown",
+  "object_type": "glass_table",
+  "_version": "4.21.0",
+  "identifying_name": "Ruritania App Glass Table",
+  "interactable": true,
+  "_user": "nobody"
+}

@@ -1,0 +1,16 @@
+# Credentials — never commit
+credentials.csv
+splunk-*.csv
+*.csv
+!credentials.example.csv
+
+# Python
+__pycache__/
+*.py[cod]
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
