@@ -538,10 +538,12 @@ We use **static** thresholds above because this is a short-lived lab. In a real 
 > **Adaptive Thresholding** — instead of fixed values, ITSI **learns** each KPI's thresholds from its history and recalculates them **nightly**, so predictable variation (busy weekdays vs. quiet weekends, day vs. night) doesn't trigger false alerts. Found under **KPI → Thresholds → Adaptive Thresholding**.
 > - **Prerequisite:** the **Python for Scientific Computing** add-on and **at least 7 days** of backfilled KPI history (14–30+ days to capture weekly patterns).
 > - **Why not in this lab:** the datagen only has ~1–7 days of fairly flat history, so there's no established pattern for the model to learn — static thresholds are the right choice here.
+> - **Docs:** [Create adaptive KPI thresholds in ITSI](https://help.splunk.com/en/splunk-it-service-intelligence/splunk-it-service-intelligence/visualize-and-assess-service-health/4.21/advanced-thresholding/create-adaptive-kpi-thresholds-in-itsi)
 
 > **Drift Detection** — watches for **slow, gradual change** in a KPI over weeks or months — the kind of "creep" that adaptive thresholds would silently accept as the new normal (e.g., disk usage steadily climbing until it becomes an outage). It raises a notable event when a KPI drifts beyond a set tolerance so you can act proactively.
 > - **Prerequisite:** the **Python for Scientific Computing** add-on and roughly **3 months** of backfilled data.
 > - **Why not in this lab:** we don't have anywhere near 3 months of history, so drift can't be demonstrated — but it's a strong proactive-monitoring talking point for customers.
+> - **Docs:** [Monitor KPI data drift in ITSI](https://help.splunk.com/en/splunk-it-service-intelligence/splunk-it-service-intelligence/visualize-and-assess-service-health/4.21/create-kpis/monitor-kpi-data-drift-in-itsi)
 
 ### Step 2 — Error KPIs
 
