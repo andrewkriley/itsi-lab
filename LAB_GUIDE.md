@@ -531,6 +531,18 @@ For each latency KPI (API Response Time, Login Duration, App Processing Time, DB
 
 <img width="1186" height="761" alt="image" src="https://github.com/user-attachments/assets/ecf8e3bc-8902-48c0-8491-9ff9c8fce6cc" />
 
+#### Advanced options (not used in this lab)
+
+We use **static** thresholds above because this is a short-lived lab. In a real POC with aged data, ITSI offers two ML-driven capabilities worth showing a customer — both require **historical data** we don't have here, so we call them out but don't configure them.
+
+> **Adaptive Thresholding** — instead of fixed values, ITSI **learns** each KPI's thresholds from its history and recalculates them **nightly**, so predictable variation (busy weekdays vs. quiet weekends, day vs. night) doesn't trigger false alerts. Found under **KPI → Thresholds → Adaptive Thresholding**.
+> - **Prerequisite:** the **Python for Scientific Computing** add-on and **at least 7 days** of backfilled KPI history (14–30+ days to capture weekly patterns).
+> - **Why not in this lab:** the datagen only has ~1–7 days of fairly flat history, so there's no established pattern for the model to learn — static thresholds are the right choice here.
+
+> **Drift Detection** — watches for **slow, gradual change** in a KPI over weeks or months — the kind of "creep" that adaptive thresholds would silently accept as the new normal (e.g., disk usage steadily climbing until it becomes an outage). It raises a notable event when a KPI drifts beyond a set tolerance so you can act proactively.
+> - **Prerequisite:** the **Python for Scientific Computing** add-on and roughly **3 months** of backfilled data.
+> - **Why not in this lab:** we don't have anywhere near 3 months of history, so drift can't be demonstrated — but it's a strong proactive-monitoring talking point for customers.
+
 ### Step 2 — Error KPIs
 
 This step adds two more KPIs to each tier service so you're not just tracking speed — you're tracking failures too. Because the demo environment has no OS/nix metrics, these error KPIs (plus latency) become the main health signals on the glass table. Error Count measures how many requests failed per host, and Error Rate % measures what proportion of requests failed — together giving each service three health signals: how slow, how many errors, and what % errors.
