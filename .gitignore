@@ -1,0 +1,19 @@
+# Credentials — never commit
+credentials.csv
+splunk-*.csv
+*.csv
+!credentials.example.csv
+
+# Generated script output — do not commit instance-specific artifacts
+lab_configuration_results.json
+
+# Python
+__pycache__/
+*.py[cod]
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
